@@ -16,7 +16,6 @@
 	max-height: 101;
 	border:1px solid blue;
 }
-
 #slider {
 	color: #898989;
 	position: relative;
@@ -40,40 +39,40 @@
 .item1 {
 	position: relative;
 }
-
 .item {
 	position: absolute;
 }
 </style>
-
-	<div class="slWraper">
-  <!--Name of classes 'item1' and 'item' is important.-->
-			<div id="slider">
-						<div class="item1">1</div>
-						<div class="item">2</div>
-            <div class="item">3</div>
-					  <div class="item">4</div>
-					  <div class="item">5</div>
-						<div class="item">6</div>
-						<div class="item">7</div>
-						<div class="item">8</div>
+<div class="slWraper">
+ <!--Name of classes 'item1' and 'item' is important.-->
+      <div id="slider">
+     	<div class="item1">1</div>
+		<div class="item">2</div>
+        <div class="item">3</div>
+	    <div class="item">4</div>
+		<div class="item">5</div>
+		<div class="item">6</div>
+		<div class="item">7</div>
+		<div class="item">8</div>
       </div>
   </div>
 
+  
+  
 <script type="text/javascript">
-
-  var speed = 0.06,
+  var speed = 0.036,
       itemWidth = $("#slider .item1").width(),
       time = itemWidth/speed,
-      position;
- 
+      delta ='-'+(itemWidth+100);
+$( window ).resize(function() {
+   itemWidth = $("#slider .item1").width();
+}); 
+  
+  
       
  function loop(a){
-    a.animate({left:'-'+(itemWidth+100)},time,'linear',function(){
-    $(this).next().addClass("item1" ).removeClass("item");
-    
-    loop($(this).next());
-
+   a.animate({left:delta},time,'linear',function(){
+   loop($(this).next().addClass("item1" ).removeClass("item"));
 	$(this).removeClass("item1").addClass("item").appendTo("#slider");
     });
   }  
@@ -81,15 +80,20 @@
 $(document).ready(function() {
    ////start slide/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      loop($("#slider .item1"));
-     var len = $("#slider .item").length;
+     
+  
+  
      setInterval( function() { 
-        position = $("#slider .item1").offset();
-	    for (var i = 0; i < len; i++) {
-		  $("#slider .item:eq("+i+")").offset({top:position.top, left:position.left+$("#slider .item1").width()*(i+1)});
+     var len = $("#slider .item").length,
+         position = $("#slider .item1").offset(),
+         top = position.top,
+         left = position.left;
+       
+	    for (var i = 0; i < len;i++) {
+		  $("#slider .item:eq("+i+")").offset({top:top, left:left+itemWidth*(i+1)});
 	    }
      } , 0);
 });/// end of 'document ready'
-
 </script>
 </body>
 </html>
