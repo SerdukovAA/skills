@@ -81,9 +81,10 @@
 $(document).ready(function() {
    ////start slide/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      loop($("#slider .item1"));
+     var len = $("#slider .item").length;
      setInterval( function() { 
         position = $("#slider .item1").offset();
-	    for (var i = 0; i < $("#slider .item").length; i++) {
+	    for (var i = 0; i < len; i++) {
 		  $("#slider .item:eq("+i+")").offset({top:position.top, left:position.left+$("#slider .item1").width()*(i+1)});
 	    }
      } , 0);
